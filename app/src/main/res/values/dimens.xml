@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <dimen name="shadow_card">8dp</dimen>
+    <dimen name="padding_all_card">4dp</dimen>
+    <dimen name="padding_start_card">10dp</dimen>
 </resources>
