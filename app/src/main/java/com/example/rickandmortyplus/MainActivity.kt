@@ -1,40 +1,47 @@
 package com.example.rickandmortyplus
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.rickandmortyplus.ui.theme.RickAndMortyPlusTheme
+import androidx.navigation.compose.rememberNavController
+import com.example.rickandmortyplus.navigation.BottomNavigationBar
+import com.example.rickandmortyplus.navigation.Destinations
+import com.example.rickandmortyplus.navigation.NavigationHost
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            /*
             RickAndMortyPlusTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
                     Greeting("Android")
                 }
             }
+            */
+
+            MainScreen()
         }
     }
 }
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
+fun MainScreen() {
+    val navController = rememberNavController()
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    RickAndMortyPlusTheme {
-        Greeting("Android")
+    val navigationItems = listOf(
+        Destinations.ListCharactersScreen,
+        Destinations.FavoritesCharactersScreen
+    )
+
+    Scaffold(
+        bottomBar = { BottomNavigationBar(navController = navController, items = navigationItems) }
+    ){
+        NavigationHost(navController)
     }
 }

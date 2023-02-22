@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -40,7 +39,6 @@ fun CharacterCard() {
                 elevation = dimensionResource(id = R.dimen.shadow_card),
                 spotColor = MaterialTheme.colors.onPrimary
             )
-            .background(MaterialTheme.colors.onSecondary)
     ) {
         ConstraintLayout(
             modifier = Modifier.fillMaxWidth()
