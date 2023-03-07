@@ -1,19 +1,18 @@
 package com.example.rickandmortyplus.ui.composables
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -26,6 +25,7 @@ import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.example.rickandmortyplus.R
+import com.example.rickandmortyplus.ui.theme.RickAndMortyPlusTheme
 
 @Composable
 fun CharacterCard() {
@@ -46,8 +46,9 @@ fun CharacterCard() {
             val (image, textBody) = createRefs()
 
             SubcomposeAsyncImage(
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .fillMaxHeight()
+                    .size(140.dp)
                     .constrainAs(image) {
                         start.linkTo(parent.start)
                         top.linkTo(parent.top)
@@ -79,48 +80,70 @@ fun CharacterCard() {
                         start.linkTo(image.end)
                         top.linkTo(parent.top)
                         bottom.linkTo(parent.bottom)
-                    }
+                    },
+                verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
 
                 Column() {
                     Text(
                         text = "Duck With Muscles",
-                        style = TextStyle(
-                            fontSize = 22.sp, fontWeight = FontWeight.Bold
-                        )
+                        style = MaterialTheme.typography.h6,
                     )
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Image(
-                            modifier = Modifier.height(10.dp),
+                            modifier = Modifier
+                                .height(10.dp)
+                                .padding(end = 8.dp),
                             painter = painterResource(id = R.drawable.ic_circle),
                             contentDescription = "status",
                             colorFilter = ColorFilter.tint(color = Color.Red)
                         )
-                        Text(text = "Dead - Alien")
+                        Text(
+                            style = MaterialTheme.typography.body2,
+                            text = "Dead - Alien"
+                        )
                     }
                 }
 
-                Column() {
-                    Text(text = "Las known location:")
-                    Text(text = "Earth (Replacement Dimension)")
+                Column(
+
+                ) {
+                    Text(
+                        style = MaterialTheme.typography.body2,
+                        color = Color.Gray,
+                        text = "Last known location:",
+                    )
+                    Text(
+                        style = MaterialTheme.typography.body2,
+                        text = "Earth (Replacement Dimension)"
+                    )
                 }
 
                 Column() {
-                    Text(text = "First seen in:")
-                    Text(text = "Total Rickall")
+                    Text(
+                        style = MaterialTheme.typography.body2,
+                        color = Color.Gray,
+                        text = "First seen in:"
+                    )
+                    Text(
+                        style = MaterialTheme.typography.body2,
+                        text = "Total Rickall"
+                    )
                 }
             }
-
-
         }
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewCharacterCard() {
-    CharacterCard()
+    RickAndMortyPlusTheme() {
+        Surface() {
+            CharacterCard()
+        }
+    }
 }
