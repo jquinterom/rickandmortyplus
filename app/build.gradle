@@ -4,6 +4,8 @@ plugins {
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id 'kotlin-android'
+    id 'dagger.hilt.android.plugin'
+    id("com.apollographql.apollo") version("2.5.14")
 }
 
 android {
@@ -47,6 +49,10 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+}
+
+apollo {
+    generateKotlinModels.set(true)
 }
 
 dependencies {
@@ -104,4 +110,8 @@ dependencies {
 
     // Mockito
     testImplementation "org.mockito:mockito-core:2.19.0"
+
+    // Apollo GraphQl
+    implementation "com.apollographql.apollo:apollo-runtime:2.5.14"
+    implementation "com.apollographql.apollo:apollo-coroutines-support:2.5.14"
 }

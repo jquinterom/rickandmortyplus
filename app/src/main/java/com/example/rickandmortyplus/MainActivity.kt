@@ -11,7 +11,9 @@ import com.example.rickandmortyplus.navigation.BottomNavigationBar
 import com.example.rickandmortyplus.navigation.Destinations
 import com.example.rickandmortyplus.navigation.NavigationHost
 import com.example.rickandmortyplus.ui.theme.RickAndMortyPlusTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
