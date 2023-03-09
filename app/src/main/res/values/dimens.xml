@@ -3,4 +3,8 @@
     <dimen name="shadow_card">8dp</dimen>
     <dimen name="padding_all_card">4dp</dimen>
     <dimen name="padding_start_card">10dp</dimen>
+    <dimen name="size_image_card">140dp</dimen>
+    <dimen name="space_by_card_column">4dp</dimen>
+    <dimen name="height_circle_card">10dp</dimen>
+    <dimen name="padding_card">8dp</dimen>
 </resources>

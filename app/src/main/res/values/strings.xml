@@ -2,4 +2,6 @@
     <string name="app_name">RickAndMortyPlus</string>
     <string name="error_dialog_title">Oops, something happened</string>
     <string name="try_again">Try again</string>
+    <string name="last_known_location">Last known location:</string>
+    <string name="first_seen_in">First seen in:</string>
 </resources>

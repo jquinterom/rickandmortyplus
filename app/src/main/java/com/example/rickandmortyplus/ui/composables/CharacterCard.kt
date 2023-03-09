@@ -14,18 +14,17 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
+import com.example.rickandmortyplus.EMPTY_CHARACTER
 import com.example.rickandmortyplus.EMPTY_STR
 import com.example.rickandmortyplus.R
 import com.example.rickandmortyplus.STATUS_ALIVE
 import com.example.rickandmortyplus.model.Character
-import com.example.rickandmortyplus.model.Episode
-import com.example.rickandmortyplus.model.Location
 import com.example.rickandmortyplus.ui.theme.RickAndMortyPlusTheme
 
 @Composable
@@ -58,7 +57,7 @@ fun CharacterCard(
             SubcomposeAsyncImage(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .size(140.dp)
+                    .size(dimensionResource(id = R.dimen.size_image_card))
                     .constrainAs(image) {
                         start.linkTo(parent.start)
                         top.linkTo(parent.top)
@@ -91,7 +90,7 @@ fun CharacterCard(
                         top.linkTo(parent.top)
                         bottom.linkTo(parent.bottom)
                     },
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+                verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.space_by_card_column))
             ) {
 
                 Column() {
@@ -105,15 +104,15 @@ fun CharacterCard(
                     ) {
                         Image(
                             modifier = Modifier
-                                .height(10.dp)
-                                .padding(end = 8.dp),
+                                .height(dimensionResource(id = R.dimen.height_circle_card))
+                                .padding(end = dimensionResource(id = R.dimen.padding_card)),
                             painter = painterResource(id = R.drawable.ic_circle),
-                            contentDescription = "status",
+                            contentDescription = null,
                             colorFilter = colorStatus
                         )
                         Text(
                             style = MaterialTheme.typography.body2,
-                            text = character.status + " - " + character.species
+                            text =  "${character.status} - ${character.species}"
                         )
                     }
                 }
@@ -124,11 +123,11 @@ fun CharacterCard(
                     Text(
                         style = MaterialTheme.typography.body2,
                         color = Color.Gray,
-                        text = "Last known location:",
+                        text = stringResource(id = R.string.last_known_location),
                     )
                     Text(
                         style = MaterialTheme.typography.body2,
-                        text = character.location?.name ?: ""
+                        text = character.location?.name ?: EMPTY_STR
                     )
                 }
 
@@ -136,11 +135,11 @@ fun CharacterCard(
                     Text(
                         style = MaterialTheme.typography.body2,
                         color = Color.Gray,
-                        text = "First seen in:"
+                        text = stringResource(id = R.string.first_seen_in)
                     )
                     Text(
                         style = MaterialTheme.typography.body2,
-                        text = character.episode?.get(0)?.name ?: ""
+                        text = character.episode?.get(0)?.name ?: EMPTY_STR
                     )
                 }
             }
@@ -153,7 +152,7 @@ fun CharacterCard(
 fun PreviewCharacterCard() {
     RickAndMortyPlusTheme() {
         Surface() {
-            CharacterCard(Character("1", "", "", "", "", Location(""), listOf<Episode>()))
+            CharacterCard(EMPTY_CHARACTER)
         }
     }
 }
