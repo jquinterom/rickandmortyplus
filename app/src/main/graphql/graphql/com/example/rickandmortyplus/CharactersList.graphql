@@ -1,9 +1,17 @@
 query CharactersList {
-    characters{
+    characters {
         results {
             id
             name
+            status
             species
+            image
+            location {
+                name
+            }
+            episode{
+                name
+            }
         }
     }
 }

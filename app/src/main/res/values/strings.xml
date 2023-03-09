@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RickAndMortyPlus</string>
+    <string name="error_dialog_title">Oops, something happened</string>
+    <string name="try_again">Try again</string>
 </resources>

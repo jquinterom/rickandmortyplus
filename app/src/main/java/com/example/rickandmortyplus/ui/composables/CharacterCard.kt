@@ -20,11 +20,25 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
+import com.example.rickandmortyplus.EMPTY_STR
 import com.example.rickandmortyplus.R
+import com.example.rickandmortyplus.STATUS_ALIVE
+import com.example.rickandmortyplus.model.Character
+import com.example.rickandmortyplus.model.Episode
+import com.example.rickandmortyplus.model.Location
 import com.example.rickandmortyplus.ui.theme.RickAndMortyPlusTheme
 
 @Composable
-fun CharacterCard() {
+fun CharacterCard(
+    character: Character
+) {
+    val colorStatus =
+        if (character.status.toString() == STATUS_ALIVE) {
+            ColorFilter.tint(color = Color.Green)
+        } else {
+            ColorFilter.tint(color = Color.Red)
+        }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -51,7 +65,7 @@ fun CharacterCard() {
                         bottom.linkTo(parent.bottom)
                     },
                 alignment = Alignment.Center,
-                model = "https://rickandmortyapi.com/api/character/avatar/109.jpeg",
+                model = character.image,
                 contentDescription = null,
             ) {
 
@@ -82,7 +96,7 @@ fun CharacterCard() {
 
                 Column() {
                     Text(
-                        text = "Duck With Muscles",
+                        text = character.name ?: EMPTY_STR,
                         style = MaterialTheme.typography.h6,
                     )
                     Row(
@@ -95,11 +109,11 @@ fun CharacterCard() {
                                 .padding(end = 8.dp),
                             painter = painterResource(id = R.drawable.ic_circle),
                             contentDescription = "status",
-                            colorFilter = ColorFilter.tint(color = Color.Red)
+                            colorFilter = colorStatus
                         )
                         Text(
                             style = MaterialTheme.typography.body2,
-                            text = "Dead - Alien"
+                            text = character.status + " - " + character.species
                         )
                     }
                 }
@@ -114,7 +128,7 @@ fun CharacterCard() {
                     )
                     Text(
                         style = MaterialTheme.typography.body2,
-                        text = "Earth (Replacement Dimension)"
+                        text = character.location?.name ?: ""
                     )
                 }
 
@@ -126,7 +140,7 @@ fun CharacterCard() {
                     )
                     Text(
                         style = MaterialTheme.typography.body2,
-                        text = "Total Rickall"
+                        text = character.episode?.get(0)?.name ?: ""
                     )
                 }
             }
@@ -139,7 +153,7 @@ fun CharacterCard() {
 fun PreviewCharacterCard() {
     RickAndMortyPlusTheme() {
         Surface() {
-            CharacterCard()
+            CharacterCard(Character("1", "", "", "", "", Location(""), listOf<Episode>()))
         }
     }
 }
