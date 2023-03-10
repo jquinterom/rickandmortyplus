@@ -23,6 +23,7 @@ import coil.compose.SubcomposeAsyncImageContent
 import com.example.rickandmortyplus.EMPTY_CHARACTER
 import com.example.rickandmortyplus.EMPTY_STR
 import com.example.rickandmortyplus.R
+import com.example.rickandmortyplus.RMApplication.Companion.prefs
 import com.example.rickandmortyplus.STATUS_ALIVE
 import com.example.rickandmortyplus.model.Character
 import com.example.rickandmortyplus.ui.theme.RickAndMortyPlusTheme
@@ -37,6 +38,25 @@ fun CharacterCard(
         } else {
             ColorFilter.tint(color = Color.Red)
         }
+
+    val episodeStr = if (character.episode != null) {
+        if (character.episode.isNotEmpty()) {
+            character.episode[0].name.toString()
+        } else {
+            EMPTY_STR
+        }
+    } else {
+        EMPTY_STR
+    }
+
+    // Validating if character is favorite
+    val isFavoritePrefs = prefs.getFavoriteCharacter(characterId = character.id ?: "")
+
+    val isFavoriteColor = if (isFavoritePrefs != null) {
+        ColorFilter.tint(color = MaterialTheme.colors.secondary)
+    } else {
+        ColorFilter.tint(color = Color.DarkGray)
+    }
 
     Card(
         modifier = Modifier
@@ -112,14 +132,12 @@ fun CharacterCard(
                         )
                         Text(
                             style = MaterialTheme.typography.body2,
-                            text =  "${character.status} - ${character.species}"
+                            text = "${character.status} - ${character.species}"
                         )
                     }
                 }
 
-                Column(
-
-                ) {
+                Column() {
                     Text(
                         style = MaterialTheme.typography.body2,
                         color = Color.Gray,
@@ -131,15 +149,31 @@ fun CharacterCard(
                     )
                 }
 
-                Column() {
-                    Text(
-                        style = MaterialTheme.typography.body2,
-                        color = Color.Gray,
-                        text = stringResource(id = R.string.first_seen_in)
-                    )
-                    Text(
-                        style = MaterialTheme.typography.body2,
-                        text = character.episode?.get(0)?.name ?: EMPTY_STR
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.Start
+                    ) {
+                        Text(
+                            style = MaterialTheme.typography.body2,
+                            color = Color.Gray,
+                            text = stringResource(id = R.string.first_seen_in)
+                        )
+                        Text(
+                            style = MaterialTheme.typography.body2,
+                            text = episodeStr
+                        )
+                    }
+                    Image(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .align(Alignment.CenterEnd),
+                        painter = painterResource(id = R.drawable.ic_favorite),
+                        contentDescription = null,
+                        colorFilter = isFavoriteColor
                     )
                 }
             }
