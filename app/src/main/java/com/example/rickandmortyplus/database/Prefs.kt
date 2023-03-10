@@ -1,17 +1,24 @@
 package com.example.rickandmortyplus.database
 
 import android.content.Context
+import android.util.Log
 
-class Prefs(val context: Context) {
+class Prefs(context: Context) {
     private val sharedName = "rmDatabase"
-    private val sharedCharacterFavoriteId = "characterId"
     private val storage = context.getSharedPreferences(sharedName, 0)
 
     fun saveFavoriteCharacter(characterId: String) {
-        storage.edit().putString(sharedCharacterFavoriteId, characterId).apply()
+        Log.d("prefsS", "Saving...")
+        storage.edit().putString(characterId, characterId).apply()
     }
 
-    fun getFavoriteCharacter(): String? {
-        return storage.getString(sharedCharacterFavoriteId, null)
+    fun getFavoriteCharacter(characterId: String): String? {
+        Log.d("prefsG", "Getting...")
+        return storage.getString(characterId, null)
+    }
+
+    fun removeFavoriteCharacter(characterId: String){
+        Log.d("prefsR", "Removing...")
+        storage.edit().remove(characterId).apply()
     }
 }

@@ -2,6 +2,7 @@ package com.example.rickandmortyplus
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.Scaffold
@@ -40,4 +41,9 @@ fun MainScreen() {
     ){
         NavigationHost(navController)
     }
+
+    RMApplication.prefs.saveFavoriteCharacter("1")
+    val isFavorite = RMApplication.prefs.getFavoriteCharacter("1")
+    Log.d("isFavorite", isFavorite.toString())
+    RMApplication.prefs.removeFavoriteCharacter("1")
 }
