@@ -1,6 +1,7 @@
 package com.example.rickandmortyplus.ui.composables
 
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -170,7 +171,10 @@ fun CharacterCard(
                     Image(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .align(Alignment.CenterEnd),
+                            .align(Alignment.CenterEnd)
+                            .clickable {
+                                       Log.d("Click", "clicking ")
+                            },
                         painter = painterResource(id = R.drawable.ic_favorite),
                         contentDescription = null,
                         colorFilter = isFavoriteColor
