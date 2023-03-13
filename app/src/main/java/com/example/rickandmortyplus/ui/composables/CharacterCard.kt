@@ -21,11 +21,9 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
-import com.example.rickandmortyplus.EMPTY_CHARACTER
-import com.example.rickandmortyplus.EMPTY_STR
+import com.example.rickandmortyplus.*
 import com.example.rickandmortyplus.R
 import com.example.rickandmortyplus.RMApplication.Companion.prefs
-import com.example.rickandmortyplus.STATUS_ALIVE
 import com.example.rickandmortyplus.model.Character
 import com.example.rickandmortyplus.ui.theme.RickAndMortyPlusTheme
 
@@ -62,62 +60,46 @@ fun CharacterCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(
-                dimensionResource(id = R.dimen.padding_all_card)
-            )
-            .shadow(
-                elevation = dimensionResource(id = R.dimen.shadow_card),
-                spotColor = MaterialTheme.colors.onPrimary
-            )
+            .padding(all = dimensionResource(id = R.dimen.space_by_card_column))
     ) {
-        ConstraintLayout(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            val (image, textBody) = createRefs()
-
-            SubcomposeAsyncImage(
-                contentScale = ContentScale.Crop,
+        Row {
+            Box(
                 modifier = Modifier
-                    .size(dimensionResource(id = R.dimen.size_image_card))
-                    .constrainAs(image) {
-                        start.linkTo(parent.start)
-                        top.linkTo(parent.top)
-                        bottom.linkTo(parent.bottom)
-                    },
-                alignment = Alignment.Center,
-                model = character.image,
-                contentDescription = null,
+                    .size(dimensionResource(id = R.dimen.size_image_card)),
+                contentAlignment = Alignment.Center
             ) {
+                SubcomposeAsyncImage(
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize(),
+                    alignment = Alignment.Center,
+                    model = character.image,
+                    contentDescription = null,
+                ) {
 
-                val state = painter.state
-                if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
-                    Box(
-                        modifier = Modifier.clickable { },
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        CircularProgressIndicator()
+                    val state = painter.state
+                    if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
+                        Box(
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            CircularProgressIndicator()
+                        }
+                    } else {
+                        SubcomposeAsyncImageContent()
                     }
-                } else {
-                    SubcomposeAsyncImageContent()
                 }
             }
 
             Column(
                 modifier = Modifier
-                    .padding(start = dimensionResource(id = R.dimen.padding_start_card))
                     .fillMaxWidth()
-                    .constrainAs(textBody) {
-                        start.linkTo(image.end)
-                        top.linkTo(parent.top)
-                        bottom.linkTo(parent.bottom)
-                    },
-                verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.space_by_card_column))
-            ) {
+                    .fillMaxHeight(.16f)
+                    .padding(dimensionResource(id = R.dimen.padding_card)),
 
-                Column() {
+                ) {
+                Column {
                     Text(
-                        text = character.name ?: EMPTY_STR,
                         style = MaterialTheme.typography.h6,
+                        text = character.name ?: EMPTY_STR,
                     )
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -138,7 +120,7 @@ fun CharacterCard(
                     }
                 }
 
-                Column() {
+                Column {
                     Text(
                         style = MaterialTheme.typography.body2,
                         color = Color.Gray,
@@ -150,12 +132,12 @@ fun CharacterCard(
                     )
                 }
 
-                Box(
+                Row(
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .fillMaxWidth(),
                 ) {
                     Column(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier,
                         horizontalAlignment = Alignment.Start
                     ) {
                         Text(
@@ -167,18 +149,24 @@ fun CharacterCard(
                             style = MaterialTheme.typography.body2,
                             text = episodeStr
                         )
+
                     }
-                    Image(
+                    Box(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .align(Alignment.CenterEnd)
-                            .clickable {
-                                       Log.d("Click", "clicking ")
-                            },
-                        painter = painterResource(id = R.drawable.ic_favorite),
-                        contentDescription = null,
-                        colorFilter = isFavoriteColor
-                    )
+                            .fillMaxHeight()
+                            .fillMaxWidth(),
+                        contentAlignment = Alignment.CenterEnd
+                    ) {
+                        Image(
+                            modifier = Modifier
+                                .clickable {
+                                    Log.d("Click", "clicking ")
+                                },
+                            painter = painterResource(id = R.drawable.ic_favorite),
+                            contentDescription = null,
+                            colorFilter = isFavoriteColor
+                        )
+                    }
                 }
             }
         }
