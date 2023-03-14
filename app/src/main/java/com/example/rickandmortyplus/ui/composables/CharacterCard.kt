@@ -9,7 +9,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
@@ -17,13 +16,14 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
-import com.example.rickandmortyplus.*
+import com.example.rickandmortyplus.EMPTY_CHARACTER
+import com.example.rickandmortyplus.EMPTY_STR
 import com.example.rickandmortyplus.R
 import com.example.rickandmortyplus.RMApplication.Companion.prefs
+import com.example.rickandmortyplus.STATUS_ALIVE
 import com.example.rickandmortyplus.model.Character
 import com.example.rickandmortyplus.ui.theme.RickAndMortyPlusTheme
 
