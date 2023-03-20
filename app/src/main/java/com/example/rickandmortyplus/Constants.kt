@@ -16,5 +16,6 @@ val EMPTY_CHARACTER = Character(
     Location("Earth"),
     listOf(
         Episode(name = "First Episode")
-    )
+    ),
+    false
 )

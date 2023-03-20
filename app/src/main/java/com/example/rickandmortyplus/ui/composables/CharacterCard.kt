@@ -16,20 +16,20 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
-import com.example.rickandmortyplus.EMPTY_CHARACTER
-import com.example.rickandmortyplus.EMPTY_STR
+import com.example.rickandmortyplus.*
 import com.example.rickandmortyplus.R
-import com.example.rickandmortyplus.RMApplication.Companion.prefs
-import com.example.rickandmortyplus.STATUS_ALIVE
 import com.example.rickandmortyplus.model.Character
 import com.example.rickandmortyplus.ui.theme.RickAndMortyPlusTheme
+import com.example.rickandmortyplus.viewmodel.CharacterViewModel
 
 @Composable
 fun CharacterCard(
-    character: Character
+    character: Character,
+    setFavorite: (character: Character) -> Unit,
 ) {
     val colorStatus =
         if (character.status.toString() == STATUS_ALIVE) {
@@ -48,10 +48,12 @@ fun CharacterCard(
         EMPTY_STR
     }
 
-    // Validating if character is favorite
-    val isFavoritePrefs = prefs.getFavoriteCharacter(characterId = character.id ?: "")
 
-    val isFavoriteColor = if (isFavoritePrefs != null) {
+    // Validating if character is favorite
+    val isFavoriteCharacter =
+        RMApplication.prefs.getFavoriteCharacter(characterId = character.id.toString())
+
+    val isFavoriteColor = if (isFavoriteCharacter != null) {
         ColorFilter.tint(color = MaterialTheme.colors.secondary)
     } else {
         ColorFilter.tint(color = Color.DarkGray)
@@ -160,7 +162,10 @@ fun CharacterCard(
                         Image(
                             modifier = Modifier
                                 .clickable {
-                                    Log.d("Click", "clicking ")
+                                    // RMApplication.prefs.saveFavoriteCharacter(characterId = character.id.toString())
+                                    // characterViewModel.saveFavoriteCharacter(idCharacter = character.id ?: EMPTY_STR)
+                                    // characterViewModel.updateFavoriteCharacter(character)
+                                    setFavorite(character)
                                 },
                             painter = painterResource(id = R.drawable.ic_favorite),
                             contentDescription = null,
@@ -178,7 +183,7 @@ fun CharacterCard(
 fun PreviewCharacterCard() {
     RickAndMortyPlusTheme() {
         Surface() {
-            CharacterCard(EMPTY_CHARACTER)
+            CharacterCard(EMPTY_CHARACTER, hiltViewModel())
         }
     }
 }

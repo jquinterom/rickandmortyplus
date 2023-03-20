@@ -19,7 +19,8 @@ class CharacterDTOMapper {
             species = characterQueryListResult?.species,
             image = characterQueryListResult?.image,
             location = Location(characterQueryListResult?.location?.name),
-            episode = characterQueryListResult?.episode?.map { fromEpisodeQueryListToDomain(it) }
+            episode = characterQueryListResult?.episode?.map { fromEpisodeQueryListToDomain(it) },
+            isFavorite = false
         )
     }
 
