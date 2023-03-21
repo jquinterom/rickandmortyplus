@@ -24,7 +24,6 @@ import com.example.rickandmortyplus.*
 import com.example.rickandmortyplus.R
 import com.example.rickandmortyplus.model.Character
 import com.example.rickandmortyplus.ui.theme.RickAndMortyPlusTheme
-import com.example.rickandmortyplus.viewmodel.CharacterViewModel
 
 @Composable
 fun CharacterCard(
@@ -162,9 +161,6 @@ fun CharacterCard(
                         Image(
                             modifier = Modifier
                                 .clickable {
-                                    // RMApplication.prefs.saveFavoriteCharacter(characterId = character.id.toString())
-                                    // characterViewModel.saveFavoriteCharacter(idCharacter = character.id ?: EMPTY_STR)
-                                    // characterViewModel.updateFavoriteCharacter(character)
                                     setFavorite(character)
                                 },
                             painter = painterResource(id = R.drawable.ic_favorite),
@@ -183,7 +179,7 @@ fun CharacterCard(
 fun PreviewCharacterCard() {
     RickAndMortyPlusTheme() {
         Surface() {
-            CharacterCard(EMPTY_CHARACTER, hiltViewModel())
+            CharacterCard(EMPTY_CHARACTER) { }
         }
     }
 }

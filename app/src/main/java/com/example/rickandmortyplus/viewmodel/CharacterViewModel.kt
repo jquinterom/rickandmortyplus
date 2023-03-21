@@ -27,14 +27,6 @@ class CharacterViewModel @Inject constructor(
     var charactersList = mutableStateOf<List<Character>?>(null)
         private set
 
-    var isFavoriteCharacter = mutableStateOf<Boolean?>(null)
-        private set
-
-    /*
-    var charactersList =
-        mutableStateOf<List<Character>>(listOf())
-    */
-
     private fun getCharacters() = viewModelScope.launch {
         charactersStatus.value = ViewState.Loading()
         try {
