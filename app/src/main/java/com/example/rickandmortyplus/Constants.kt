@@ -19,3 +19,6 @@ val EMPTY_CHARACTER = Character(
     ),
     false
 )
+const val ONE_NUMBER = "1"
+const val ONE_STR = "one"
+const val RM_DATABASE = "rmDatabase"
